@@ -30,7 +30,7 @@ body {
 #article {
     text-align: left;
     background: gold;
-    padding: 20px;
+    padding: 40px;
     display: flex;
 }
 
