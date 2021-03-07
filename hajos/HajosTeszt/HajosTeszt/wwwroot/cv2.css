@@ -35,12 +35,12 @@ body {
 }
 
 #aside {
-    background-color: lightgreen;
+    background-color: darkgreen;
     padding: 20px;
 }
 
 #footer {
-    background: hotpink;
+    background: red;
     padding: 20px;
 }
 
