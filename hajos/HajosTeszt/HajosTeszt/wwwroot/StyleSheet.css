@@ -31,6 +31,9 @@ a:hover {
 #listak {
     background-color: lightgrey;
 }
+#szoveg {
+    background-color: red;
+}
 
 .megisfeher {
     background-color: white;
