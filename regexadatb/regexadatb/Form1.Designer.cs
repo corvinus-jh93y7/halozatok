@@ -45,6 +45,8 @@ namespace regexadatb
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.personBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.personDataGridView = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,7 +55,6 @@ namespace regexadatb
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.personBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.personBindingNavigator)).BeginInit();
             this.personBindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.personDataGridView)).BeginInit();
@@ -206,6 +207,24 @@ namespace regexadatb
             this.personDataGridView.Size = new System.Drawing.Size(776, 331);
             this.personDataGridView.TabIndex = 1;
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Segoe MDL2 Assets", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(607, 392);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(181, 46);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "button";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(448, 407);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(153, 20);
+            this.textBox1.TabIndex = 3;
+            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "PersonSK";
@@ -252,21 +271,12 @@ namespace regexadatb
             // 
             this.personBindingSource.DataSource = typeof(regexadatb.Person);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(607, 392);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(181, 46);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "&Add";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.personDataGridView);
             this.Controls.Add(this.personBindingNavigator);
@@ -307,6 +317,7 @@ namespace regexadatb
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

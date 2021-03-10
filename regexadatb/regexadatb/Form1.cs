@@ -18,18 +18,27 @@ namespace regexadatb
         public Form1()
         {
             InitializeComponent();
+            button1.Text = "\uE706";
             context.People.Load();
             personBindingSource.DataSource = context.People.Local;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Person p = new Person();
-            p.Name = "Joe";
+            NewPersonForm npf = new NewPersonForm();
+            if (npf.ShowDialog()==DialogResult.OK)
+            {
+                Person p = new Person();
+                p.Name = npf.textBoxName.Text;
+                p.Neptun = npf.textBoxNeptun.Text;
+                p.Email = npf.textBoxEmail.Text;
+                p.PersonalNumber = npf.textBoxSzemelyi.Text;
+                p.TaxNumber = npf.textBoxAdo.Text;
+                p.PhoneNumber = npf.textBoxTelo.Text;
 
-            personBindingSource.Add(p);
-            context.SaveChanges();
-            
+                personBindingSource.Add(p);
+                context.SaveChanges();
+            }
         }
     }
 }
