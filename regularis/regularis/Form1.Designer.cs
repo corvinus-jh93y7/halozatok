@@ -62,6 +62,7 @@ namespace regularis
             // 
             // textBoxRegEx
             // 
+            this.textBoxRegEx.BackColor = System.Drawing.SystemColors.Window;
             this.textBoxRegEx.Location = new System.Drawing.Point(30, 220);
             this.textBoxRegEx.Name = "textBoxRegEx";
             this.textBoxRegEx.Size = new System.Drawing.Size(262, 20);

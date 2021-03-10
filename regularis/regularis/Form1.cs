@@ -25,7 +25,7 @@ namespace regularis
 
         private void textBoxRegEx_TextChanged(object sender, EventArgs e)
         {
-            DoCheck();
+            DoCheck();      
         }
 
         void DoCheck()
