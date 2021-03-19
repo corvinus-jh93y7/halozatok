@@ -25,6 +25,7 @@
             sor.appendChild(elem);
 
             elem.innerText = faktoriális(s) / (faktoriális(o) * faktoriális(s - o));
+           
         }
 
 
