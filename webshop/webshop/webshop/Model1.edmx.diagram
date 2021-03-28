@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ff311c7c53294784962e30043c8e8f3e" Name="Diagram1">
+        <EntityTypeShape EntityType="Database1Model.Raktar" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Rendeles" Width="1.5" PointX="7.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Rendeles_tetel" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Termek" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Termekkategoria" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Ugyfel" Width="1.5" PointX="0.75" PointY="9.625" IsExpanded="true" />
+        <AssociationConnector Association="Database1Model.FK_Termek_Raktar" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_Rendeles_tetel_Rendeles" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_Rendeles_Ugyfel" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_Rendeles_tetel_Termek" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_Termek_Termekkategoria" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_Termekkategoria_Termekkategoria" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

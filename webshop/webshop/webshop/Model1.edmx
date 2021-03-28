@@ -1,0 +1,462 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Raktar">
+          <Key>
+            <PropertyRef Name="RAKTAR_KOD" />
+          </Key>
+          <Property Name="RAKTAR_KOD" Type="int" Nullable="false" />
+          <Property Name="RAKTAR_NEV" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="RAKTAR_CIM" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rendeles">
+          <Key>
+            <PropertyRef Name="SORSZAM" />
+          </Key>
+          <Property Name="SORSZAM" Type="int" Nullable="false" />
+          <Property Name="LOGIN" Type="nvarchar" MaxLength="255" />
+          <Property Name="REND_DATUM" Type="date" />
+          <Property Name="SZALL_DATUM" Type="date" />
+          <Property Name="SZALL_CIM" Type="nvarchar" MaxLength="255" />
+          <Property Name="SZALL_MOD" Type="nvarchar" MaxLength="255" />
+          <Property Name="FIZ_MOD" Type="nvarchar" MaxLength="255" />
+          <Property Name="SZAMLA_CIM" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Rendeles_tetel">
+          <Key>
+            <PropertyRef Name="SORSZAM" />
+            <PropertyRef Name="TERMEKKOD" />
+          </Key>
+          <Property Name="SORSZAM" Type="int" Nullable="false" />
+          <Property Name="TERMEKKOD" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="EGYSEGAR" Type="float" />
+          <Property Name="MENNYISEG" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Termek">
+          <Key>
+            <PropertyRef Name="TERMEKKOD" />
+          </Key>
+          <Property Name="TERMEKKOD" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="MEGNEVEZES" Type="nvarchar" MaxLength="255" />
+          <Property Name="KAT_ID" Type="int" />
+          <Property Name="LISTAAR" Type="float" />
+          <Property Name="LEIRAS" Type="nvarchar" MaxLength="255" />
+          <Property Name="RAKTAR_KOD" Type="int" />
+          <Property Name="KESZLET" Type="float" />
+          <Property Name="MEGYS" Type="nvarchar" MaxLength="255" />
+          <Property Name="FELVITTE" Type="nvarchar" MaxLength="255" />
+          <Property Name="FELVITEL" Type="date" />
+        </EntityType>
+        <EntityType Name="Termekkategoria">
+          <Key>
+            <PropertyRef Name="KAT_ID" />
+          </Key>
+          <Property Name="KAT_ID" Type="int" Nullable="false" />
+          <Property Name="KAT_NEV" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="SZULO_KAT" Type="int" />
+        </EntityType>
+        <EntityType Name="Ugyfel">
+          <Key>
+            <PropertyRef Name="LOGIN" />
+          </Key>
+          <Property Name="LOGIN" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="NEV" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="SZULEV" Type="int" />
+          <Property Name="NEM" Type="nvarchar" MaxLength="1" />
+          <Property Name="CIM" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK_Rendeles_tetel_Rendeles">
+          <End Role="Rendeles" Type="Self.Rendeles" Multiplicity="1" />
+          <End Role="Rendeles_tetel" Type="Self.Rendeles_tetel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rendeles">
+              <PropertyRef Name="SORSZAM" />
+            </Principal>
+            <Dependent Role="Rendeles_tetel">
+              <PropertyRef Name="SORSZAM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rendeles_tetel_Termek">
+          <End Role="Termek" Type="Self.Termek" Multiplicity="1" />
+          <End Role="Rendeles_tetel" Type="Self.Rendeles_tetel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Termek">
+              <PropertyRef Name="TERMEKKOD" />
+            </Principal>
+            <Dependent Role="Rendeles_tetel">
+              <PropertyRef Name="TERMEKKOD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rendeles_Ugyfel">
+          <End Role="Ugyfel" Type="Self.Ugyfel" Multiplicity="0..1" />
+          <End Role="Rendeles" Type="Self.Rendeles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ugyfel">
+              <PropertyRef Name="LOGIN" />
+            </Principal>
+            <Dependent Role="Rendeles">
+              <PropertyRef Name="LOGIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Termek_Raktar">
+          <End Role="Raktar" Type="Self.Raktar" Multiplicity="0..1" />
+          <End Role="Termek" Type="Self.Termek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Raktar">
+              <PropertyRef Name="RAKTAR_KOD" />
+            </Principal>
+            <Dependent Role="Termek">
+              <PropertyRef Name="RAKTAR_KOD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Termek_Termekkategoria">
+          <End Role="Termekkategoria" Type="Self.Termekkategoria" Multiplicity="0..1" />
+          <End Role="Termek" Type="Self.Termek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Termekkategoria">
+              <PropertyRef Name="KAT_ID" />
+            </Principal>
+            <Dependent Role="Termek">
+              <PropertyRef Name="KAT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Termekkategoria_Termekkategoria">
+          <End Role="Termekkategoria" Type="Self.Termekkategoria" Multiplicity="0..1" />
+          <End Role="Termekkategoria1" Type="Self.Termekkategoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Termekkategoria">
+              <PropertyRef Name="KAT_ID" />
+            </Principal>
+            <Dependent Role="Termekkategoria1">
+              <PropertyRef Name="SZULO_KAT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1ModelStoreContainer">
+          <EntitySet Name="Raktar" EntityType="Self.Raktar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rendeles" EntityType="Self.Rendeles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rendeles_tetel" EntityType="Self.Rendeles_tetel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Termek" EntityType="Self.Termek" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Termekkategoria" EntityType="Self.Termekkategoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ugyfel" EntityType="Self.Ugyfel" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Rendeles_tetel_Rendeles" Association="Self.FK_Rendeles_tetel_Rendeles">
+            <End Role="Rendeles" EntitySet="Rendeles" />
+            <End Role="Rendeles_tetel" EntitySet="Rendeles_tetel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rendeles_tetel_Termek" Association="Self.FK_Rendeles_tetel_Termek">
+            <End Role="Termek" EntitySet="Termek" />
+            <End Role="Rendeles_tetel" EntitySet="Rendeles_tetel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rendeles_Ugyfel" Association="Self.FK_Rendeles_Ugyfel">
+            <End Role="Ugyfel" EntitySet="Ugyfel" />
+            <End Role="Rendeles" EntitySet="Rendeles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Termek_Raktar" Association="Self.FK_Termek_Raktar">
+            <End Role="Raktar" EntitySet="Raktar" />
+            <End Role="Termek" EntitySet="Termek" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Termek_Termekkategoria" Association="Self.FK_Termek_Termekkategoria">
+            <End Role="Termekkategoria" EntitySet="Termekkategoria" />
+            <End Role="Termek" EntitySet="Termek" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Termekkategoria_Termekkategoria" Association="Self.FK_Termekkategoria_Termekkategoria">
+            <End Role="Termekkategoria" EntitySet="Termekkategoria" />
+            <End Role="Termekkategoria1" EntitySet="Termekkategoria" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Raktar">
+          <Key>
+            <PropertyRef Name="RAKTAR_KOD" />
+          </Key>
+          <Property Name="RAKTAR_KOD" Type="Int32" Nullable="false" />
+          <Property Name="RAKTAR_NEV" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RAKTAR_CIM" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Termek" Relationship="Self.FK_Termek_Raktar" FromRole="Raktar" ToRole="Termek" />
+        </EntityType>
+        <EntityType Name="Rendeles">
+          <Key>
+            <PropertyRef Name="SORSZAM" />
+          </Key>
+          <Property Name="SORSZAM" Type="Int32" Nullable="false" />
+          <Property Name="LOGIN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="REND_DATUM" Type="DateTime" Precision="0" />
+          <Property Name="SZALL_DATUM" Type="DateTime" Precision="0" />
+          <Property Name="SZALL_CIM" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SZALL_MOD" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FIZ_MOD" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SZAMLA_CIM" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Rendeles_tetel" Relationship="Self.FK_Rendeles_tetel_Rendeles" FromRole="Rendeles" ToRole="Rendeles_tetel" />
+          <NavigationProperty Name="Ugyfel" Relationship="Self.FK_Rendeles_Ugyfel" FromRole="Rendeles" ToRole="Ugyfel" />
+        </EntityType>
+        <EntityType Name="Rendeles_tetel">
+          <Key>
+            <PropertyRef Name="SORSZAM" />
+            <PropertyRef Name="TERMEKKOD" />
+          </Key>
+          <Property Name="SORSZAM" Type="Int32" Nullable="false" />
+          <Property Name="TERMEKKOD" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EGYSEGAR" Type="Double" />
+          <Property Name="MENNYISEG" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Rendeles" Relationship="Self.FK_Rendeles_tetel_Rendeles" FromRole="Rendeles_tetel" ToRole="Rendeles" />
+          <NavigationProperty Name="Termek" Relationship="Self.FK_Rendeles_tetel_Termek" FromRole="Rendeles_tetel" ToRole="Termek" />
+        </EntityType>
+        <EntityType Name="Termek">
+          <Key>
+            <PropertyRef Name="TERMEKKOD" />
+          </Key>
+          <Property Name="TERMEKKOD" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MEGNEVEZES" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="KAT_ID" Type="Int32" />
+          <Property Name="LISTAAR" Type="Double" />
+          <Property Name="LEIRAS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="RAKTAR_KOD" Type="Int32" />
+          <Property Name="KESZLET" Type="Double" />
+          <Property Name="MEGYS" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FELVITTE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FELVITEL" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Raktar" Relationship="Self.FK_Termek_Raktar" FromRole="Termek" ToRole="Raktar" />
+          <NavigationProperty Name="Rendeles_tetel" Relationship="Self.FK_Rendeles_tetel_Termek" FromRole="Termek" ToRole="Rendeles_tetel" />
+          <NavigationProperty Name="Termekkategoria" Relationship="Self.FK_Termek_Termekkategoria" FromRole="Termek" ToRole="Termekkategoria" />
+        </EntityType>
+        <EntityType Name="Termekkategoria">
+          <Key>
+            <PropertyRef Name="KAT_ID" />
+          </Key>
+          <Property Name="KAT_ID" Type="Int32" Nullable="false" />
+          <Property Name="KAT_NEV" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SZULO_KAT" Type="Int32" />
+          <NavigationProperty Name="Termek" Relationship="Self.FK_Termek_Termekkategoria" FromRole="Termekkategoria" ToRole="Termek" />
+          <NavigationProperty Name="Termekkategoria1" Relationship="Self.FK_Termekkategoria_Termekkategoria" FromRole="Termekkategoria" ToRole="Termekkategoria1" />
+          <NavigationProperty Name="Termekkategoria2" Relationship="Self.FK_Termekkategoria_Termekkategoria" FromRole="Termekkategoria1" ToRole="Termekkategoria" />
+        </EntityType>
+        <EntityType Name="Ugyfel">
+          <Key>
+            <PropertyRef Name="LOGIN" />
+          </Key>
+          <Property Name="LOGIN" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NEV" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SZULEV" Type="Int32" />
+          <Property Name="NEM" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="CIM" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Rendeles" Relationship="Self.FK_Rendeles_Ugyfel" FromRole="Ugyfel" ToRole="Rendeles" />
+        </EntityType>
+        <Association Name="FK_Termek_Raktar">
+          <End Role="Raktar" Type="Self.Raktar" Multiplicity="0..1" />
+          <End Role="Termek" Type="Self.Termek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Raktar">
+              <PropertyRef Name="RAKTAR_KOD" />
+            </Principal>
+            <Dependent Role="Termek">
+              <PropertyRef Name="RAKTAR_KOD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rendeles_tetel_Rendeles">
+          <End Role="Rendeles" Type="Self.Rendeles" Multiplicity="1" />
+          <End Role="Rendeles_tetel" Type="Self.Rendeles_tetel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rendeles">
+              <PropertyRef Name="SORSZAM" />
+            </Principal>
+            <Dependent Role="Rendeles_tetel">
+              <PropertyRef Name="SORSZAM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rendeles_Ugyfel">
+          <End Role="Ugyfel" Type="Self.Ugyfel" Multiplicity="0..1" />
+          <End Role="Rendeles" Type="Self.Rendeles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ugyfel">
+              <PropertyRef Name="LOGIN" />
+            </Principal>
+            <Dependent Role="Rendeles">
+              <PropertyRef Name="LOGIN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rendeles_tetel_Termek">
+          <End Role="Termek" Type="Self.Termek" Multiplicity="1" />
+          <End Role="Rendeles_tetel" Type="Self.Rendeles_tetel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Termek">
+              <PropertyRef Name="TERMEKKOD" />
+            </Principal>
+            <Dependent Role="Rendeles_tetel">
+              <PropertyRef Name="TERMEKKOD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Termek_Termekkategoria">
+          <End Role="Termekkategoria" Type="Self.Termekkategoria" Multiplicity="0..1" />
+          <End Role="Termek" Type="Self.Termek" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Termekkategoria">
+              <PropertyRef Name="KAT_ID" />
+            </Principal>
+            <Dependent Role="Termek">
+              <PropertyRef Name="KAT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Termekkategoria_Termekkategoria">
+          <End Role="Termekkategoria" Type="Self.Termekkategoria" Multiplicity="0..1" />
+          <End Role="Termekkategoria1" Type="Self.Termekkategoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Termekkategoria">
+              <PropertyRef Name="KAT_ID" />
+            </Principal>
+            <Dependent Role="Termekkategoria1">
+              <PropertyRef Name="SZULO_KAT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Raktar" EntityType="Self.Raktar" />
+          <EntitySet Name="Rendeles" EntityType="Self.Rendeles" />
+          <EntitySet Name="Rendeles_tetel" EntityType="Self.Rendeles_tetel" />
+          <EntitySet Name="Termek" EntityType="Self.Termek" />
+          <EntitySet Name="Termekkategoria" EntityType="Self.Termekkategoria" />
+          <EntitySet Name="Ugyfel" EntityType="Self.Ugyfel" />
+          <AssociationSet Name="FK_Termek_Raktar" Association="Self.FK_Termek_Raktar">
+            <End Role="Raktar" EntitySet="Raktar" />
+            <End Role="Termek" EntitySet="Termek" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rendeles_tetel_Rendeles" Association="Self.FK_Rendeles_tetel_Rendeles">
+            <End Role="Rendeles" EntitySet="Rendeles" />
+            <End Role="Rendeles_tetel" EntitySet="Rendeles_tetel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rendeles_Ugyfel" Association="Self.FK_Rendeles_Ugyfel">
+            <End Role="Ugyfel" EntitySet="Ugyfel" />
+            <End Role="Rendeles" EntitySet="Rendeles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rendeles_tetel_Termek" Association="Self.FK_Rendeles_tetel_Termek">
+            <End Role="Termek" EntitySet="Termek" />
+            <End Role="Rendeles_tetel" EntitySet="Rendeles_tetel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Termek_Termekkategoria" Association="Self.FK_Termek_Termekkategoria">
+            <End Role="Termekkategoria" EntitySet="Termekkategoria" />
+            <End Role="Termek" EntitySet="Termek" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Termekkategoria_Termekkategoria" Association="Self.FK_Termekkategoria_Termekkategoria">
+            <End Role="Termekkategoria" EntitySet="Termekkategoria" />
+            <End Role="Termekkategoria1" EntitySet="Termekkategoria" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Database1ModelStoreContainer" CdmEntityContainer="Database1Entities">
+          <EntitySetMapping Name="Raktar">
+            <EntityTypeMapping TypeName="Database1Model.Raktar">
+              <MappingFragment StoreEntitySet="Raktar">
+                <ScalarProperty Name="RAKTAR_KOD" ColumnName="RAKTAR_KOD" />
+                <ScalarProperty Name="RAKTAR_NEV" ColumnName="RAKTAR_NEV" />
+                <ScalarProperty Name="RAKTAR_CIM" ColumnName="RAKTAR_CIM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rendeles">
+            <EntityTypeMapping TypeName="Database1Model.Rendeles">
+              <MappingFragment StoreEntitySet="Rendeles">
+                <ScalarProperty Name="SORSZAM" ColumnName="SORSZAM" />
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="REND_DATUM" ColumnName="REND_DATUM" />
+                <ScalarProperty Name="SZALL_DATUM" ColumnName="SZALL_DATUM" />
+                <ScalarProperty Name="SZALL_CIM" ColumnName="SZALL_CIM" />
+                <ScalarProperty Name="SZALL_MOD" ColumnName="SZALL_MOD" />
+                <ScalarProperty Name="FIZ_MOD" ColumnName="FIZ_MOD" />
+                <ScalarProperty Name="SZAMLA_CIM" ColumnName="SZAMLA_CIM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rendeles_tetel">
+            <EntityTypeMapping TypeName="Database1Model.Rendeles_tetel">
+              <MappingFragment StoreEntitySet="Rendeles_tetel">
+                <ScalarProperty Name="SORSZAM" ColumnName="SORSZAM" />
+                <ScalarProperty Name="TERMEKKOD" ColumnName="TERMEKKOD" />
+                <ScalarProperty Name="EGYSEGAR" ColumnName="EGYSEGAR" />
+                <ScalarProperty Name="MENNYISEG" ColumnName="MENNYISEG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Termek">
+            <EntityTypeMapping TypeName="Database1Model.Termek">
+              <MappingFragment StoreEntitySet="Termek">
+                <ScalarProperty Name="TERMEKKOD" ColumnName="TERMEKKOD" />
+                <ScalarProperty Name="MEGNEVEZES" ColumnName="MEGNEVEZES" />
+                <ScalarProperty Name="KAT_ID" ColumnName="KAT_ID" />
+                <ScalarProperty Name="LISTAAR" ColumnName="LISTAAR" />
+                <ScalarProperty Name="LEIRAS" ColumnName="LEIRAS" />
+                <ScalarProperty Name="RAKTAR_KOD" ColumnName="RAKTAR_KOD" />
+                <ScalarProperty Name="KESZLET" ColumnName="KESZLET" />
+                <ScalarProperty Name="MEGYS" ColumnName="MEGYS" />
+                <ScalarProperty Name="FELVITTE" ColumnName="FELVITTE" />
+                <ScalarProperty Name="FELVITEL" ColumnName="FELVITEL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Termekkategoria">
+            <EntityTypeMapping TypeName="Database1Model.Termekkategoria">
+              <MappingFragment StoreEntitySet="Termekkategoria">
+                <ScalarProperty Name="KAT_ID" ColumnName="KAT_ID" />
+                <ScalarProperty Name="KAT_NEV" ColumnName="KAT_NEV" />
+                <ScalarProperty Name="SZULO_KAT" ColumnName="SZULO_KAT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ugyfel">
+            <EntityTypeMapping TypeName="Database1Model.Ugyfel">
+              <MappingFragment StoreEntitySet="Ugyfel">
+                <ScalarProperty Name="LOGIN" ColumnName="LOGIN" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="NEV" ColumnName="NEV" />
+                <ScalarProperty Name="SZULEV" ColumnName="SZULEV" />
+                <ScalarProperty Name="NEM" ColumnName="NEM" />
+                <ScalarProperty Name="CIM" ColumnName="CIM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
