@@ -22,3 +22,4 @@ namespace HajosTeszt.Controllers
             return new JsonResult(kérdések);
         }
     }
+}
