@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -16,6 +17,12 @@ namespace HajosTeszt.Models
             : base(options)
         {
         }
+
+        
+
+
+
+
 
         public virtual DbSet<Question> Questions { get; set; }
 

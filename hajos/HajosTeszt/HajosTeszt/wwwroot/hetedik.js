@@ -2,9 +2,9 @@
 var kerdes_szam = 1;
 window.onload = function letöltés() {
 
-    fetch('/questions.json')
+    fetch('/questions/4')
         .then(response => response.json())
-        .then(data => letöltésBefejeződött(data)
+        .then(data => console.log(data)
         );
 }
 
@@ -17,31 +17,29 @@ function letöltésBefejeződött(data) {
     kérdésMegjelenítés(data);
 }
 
-function kérdésMegjelenítés(data) {
-    //kérdés
-    ide = document.getElementById("kérdés_szöveg");
-    elem = document.createElement("div");
-    elem.innerHTML = data[kerdes_szam].questionText
-    ide.appendChild(elem);
-
-    //1.válasz
-    ide = document.getElementById("válasz1");
-    elem = document.createElement("div");
-    elem.innerHTML = data[kerdes_szam].answer1
-    ide.appendChild(elem);
-
-    //2. válasz
-    ide = document.getElementById("válasz2");
-    elem = document.createElement("div");
-    elem.innerHTML = data[kerdes_szam].answer2
-    ide.appendChild(elem);
-
-    //3.válasz
-    ide = document.getElementById("válasz3");
-    elem = document.createElement("div");
-    elem.innerHTML = data[kerdes_szam].answer3
-    ide.appendChild(elem);
+function kérdésMegjelenítés(kérdés) {
+    console.log(kérdés);
+    document.getElementById("kérdés_szöveg").innerText = kérdés.questionText
+    document.getElementById("válasz1").innerText = kérdés.answer1
+    document.getElementById("válasz2").innerText = kérdés.answer2
+    document.getElementById("válasz3").innerText = kérdés.answer3
+    document.getElementById("kép").src = "https://szoft1.comeback.hu/hajo/" + kérdés.image;
 }
+
+function kérdésBetöltés(id) {
+    fetch(`/questions/${id}`)
+        .then(response => {
+            if (!response.ok) {
+                console.error(`Hibás válasz: ${response.status}`)
+            }
+            else {
+                return response.json()
+            }
+        })
+        .then(data => kérdésMegjelenítés(data));
+} 
+
+
 function kovetkezo() {
     if (kerdes_szam == 1) {
         kerdes_szam = 2;
