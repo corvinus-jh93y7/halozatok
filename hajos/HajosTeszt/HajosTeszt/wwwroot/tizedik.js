@@ -75,7 +75,7 @@ function init() {
 }
 
 
-
+document.getElementById(`válasz1`).style.pointerEvents = "none"
 
 function előre() {
     displayedQuestion++;
