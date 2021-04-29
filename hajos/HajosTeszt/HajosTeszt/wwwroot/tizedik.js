@@ -50,7 +50,10 @@ function kérdésBetöltés(id) {
                 hotList[destination].question = q;
                 hotList[destination].goodAnswers = 0;
                 console.log(`A ${questionNumber}. kérdés letöltve a hot list ${destination}. helyére`)
-            }
+                if (displayedQuestion == undefined && destination == 0) { //!!!!!!!!!!!!!
+                    displayedQuestion = 0;
+                    kérdésMegjelenítés();
+                }
         );
 } 
 
@@ -86,7 +89,13 @@ function kovetkezo() {
     }
 
 
-    kérdésMegjelenítés();
+    
+}
+
+function előre() {
+    displayedQuestion++;
+    if (displayedQuestion == questionsInHotList) displayedQuestion = 0;
+    kérdésMegjelenítés()
 }
 
 document.getElementById("elore").onclick = kovetkezo();
