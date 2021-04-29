@@ -75,22 +75,7 @@ function init() {
 }
 
 
-function kovetkezo() {
-    if (kerdes_szam == 1) {
-        kerdes_szam = 2;
-    }
-    else {
-        if (kerdes_szam == 2) {
-            kerdes_szam = 3
-        }
-        else {
-            kerdes_szam = 1;
-        }
-    }
 
-
-    
-}
 
 function előre() {
     displayedQuestion++;
@@ -98,4 +83,4 @@ function előre() {
     kérdésMegjelenítés()
 }
 
-document.getElementById("elore").onclick = kovetkezo();
+document.getElementById("elore").onclick = előre();
