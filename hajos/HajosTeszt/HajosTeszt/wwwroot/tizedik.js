@@ -24,6 +24,7 @@ function letöltésBefejeződött(data) {
 }
 
 function kérdésMegjelenítés(kérdés) {
+    let kérdés = hotList[displayedQuestion].question;
     console.log(kérdés);
     document.getElementById("kérdés_szöveg").innerText = kérdés.questionText
     document.getElementById("válasz1").innerText = kérdés.answer1
