@@ -1,5 +1,11 @@
 ﻿var kérdések;
 var kerdes_szam = 1;
+
+var hotList = [];      
+var questionsInHotList = 3;
+var displayedQuestion;   
+var numberOfQuestions;      
+var nextQuestion = 1; 
 window.onload = function letöltés() {
 
     fetch('/questions/4')
@@ -27,17 +33,42 @@ function kérdésMegjelenítés(kérdés) {
 }
 
 function kérdésBetöltés(id) {
-    fetch(`/questions/${id}`)
-        .then(response => {
-            if (!response.ok) {
-                console.error(`Hibás válasz: ${response.status}`)
+    fetch(`/questions/${questionNumber}`)
+        .then(
+            result => {
+                if (!result.ok) {
+                    console.error(`Hibás letöltés: ${response.status}`)
+                }
+                else {
+                    return result.json()
+                }
             }
-            else {
-                return response.json()
+        )
+        .then(
+            q => {
+                hotList[destination].question = q;
+                hotList[destination].goodAnswers = 0;
+                console.log(`A ${questionNumber}. kérdés letöltve a hot list ${destination}. helyére`)
             }
-        })
-        .then(data => kérdésMegjelenítés(data));
+        );
 } 
+
+
+function init() {
+    for (var i = 0; i < questionsInHotList; i++) {
+        let q = {
+            question: {},
+            goodAnswers: 0
+        }
+        hotList[i] = q;
+    }
+
+    //Első kérdések letöltése
+    for (var i = 0; i < questionsInHotList; i++) {
+        kérdésBetöltés(nextQuestion, i);
+        nextQuestion++;
+    }
+}
 
 
 function kovetkezo() {
