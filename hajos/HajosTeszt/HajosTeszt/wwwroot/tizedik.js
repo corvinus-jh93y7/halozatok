@@ -6,6 +6,7 @@ var questionsInHotList = 3;
 var displayedQuestion;   
 var numberOfQuestions;      
 var nextQuestion = 1; 
+var timeoutHandler;
 window.onload = function letöltés() {
 
     fetch('/questions/4')
@@ -84,3 +85,6 @@ function előre() {
 }
 
 document.getElementById("elore").onclick = előre();
+
+
+timeoutHandler = setTimeout(előre, 3000);
